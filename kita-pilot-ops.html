@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pilot Conversion · Sid Sundaram × Kita</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Literata:ital,opsz,wght@0,7..72,300..700;1,7..72,300..700&family=Manrope:wght@300..800&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --bg:          oklch(0.16 0.008 145);
+    --bg-raised:   oklch(0.19 0.01 145);
+    --text:        oklch(0.95 0.005 145);
+    --text-2:      oklch(0.9 0.007 145);
+    --text-3:      oklch(0.68 0.006 145);
+    --accent:      oklch(0.68 0.13 150);
+    --accent-soft: oklch(0.68 0.13 150 / 0.12);
+    --border:      oklch(0.28 0.01 145);
+
+    --space-xs: 4px;
+    --space-sm: 8px;
+    --space-md: 16px;
+    --space-lg: 24px;
+    --space-xl: 32px;
+    --space-2xl: 48px;
+    --space-3xl: 64px;
+    --space-4xl: 96px;
+  }
+
+  html {
+    font-size: 16px;
+    scroll-behavior: smooth;
+    background: var(--bg);
+  }
+
+  body {
+    font-family: 'Manrope', sans-serif;
+    font-weight: 400;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.72;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .page {
+    max-width: 640px;
+    margin: 0 auto;
+    padding: var(--space-4xl) var(--space-lg) 120px;
+  }
+
+  h1 {
+    font-family: 'Literata', serif;
+    font-weight: 400;
+    font-size: clamp(1.9rem, 4.5vw, 2.5rem);
+    line-height: 1.22;
+    color: var(--text);
+    letter-spacing: -0.015em;
+    margin-bottom: var(--space-xl);
+  }
+
+  h1 em {
+    font-style: italic;
+    color: var(--accent);
+  }
+
+  h2 {
+    font-family: 'Literata', serif;
+    font-weight: 400;
+    font-size: 1.33rem;
+    line-height: 1.35;
+    color: var(--text);
+    margin-bottom: var(--space-lg);
+    margin-top: var(--space-4xl);
+  }
+
+  p {
+    color: var(--text-2);
+    margin-bottom: var(--space-md);
+    max-width: 68ch;
+  }
+
+  p strong {
+    color: var(--text);
+    font-weight: 600;
+  }
+
+  .header-meta {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem;
+    font-weight: 400;
+    color: var(--text-3);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    margin-bottom: var(--space-xl);
+  }
+
+  .hook { margin-top: var(--space-2xl); }
+  .hook p { font-size: 1.02rem; line-height: 1.82; }
+
+  .hook-closer {
+    font-family: 'Literata', serif;
+    font-style: italic;
+    font-size: 1.05rem;
+    color: var(--text);
+    margin-top: var(--space-lg);
+  }
+
+  .proof-item {
+    margin-bottom: var(--space-xl);
+    padding-bottom: var(--space-xl);
+    border-bottom: 1px solid var(--border);
+  }
+  .proof-item:last-of-type { border-bottom: none; padding-bottom: 0; }
+
+  .proof-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.68rem;
+    font-weight: 500;
+    color: var(--accent);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    margin-bottom: var(--space-sm);
+  }
+
+  .proof-text {
+    font-size: 0.92rem;
+    color: var(--text-2);
+    margin-bottom: var(--space-sm);
+  }
+
+  .proof-result {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.78rem;
+    color: var(--accent);
+  }
+
+  .proof-coda {
+    margin-top: var(--space-xl);
+    font-family: 'Literata', serif;
+    font-style: italic;
+    color: var(--text-2);
+  }
+
+  .product-block { margin-bottom: var(--space-3xl); }
+
+  .product-name {
+    font-family: 'Literata', serif;
+    font-size: 1.12rem;
+    color: var(--text);
+    margin-bottom: 2px;
+  }
+
+  .product-desc {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.68rem;
+    color: var(--text-3);
+    letter-spacing: 0.03em;
+    margin-bottom: var(--space-lg);
+  }
+
+  .metric-row { margin-bottom: var(--space-md); }
+
+  .metric-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.62rem;
+    font-weight: 500;
+    color: var(--text-3);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    margin-bottom: var(--space-xs);
+  }
+
+  .metric-text {
+    font-size: 0.9rem;
+    color: var(--text-2);
+    line-height: 1.7;
+    margin: 0;
+  }
+
+  .metric-text code {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.78rem;
+    color: var(--accent);
+    background: var(--accent-soft);
+    padding: 2px 6px;
+    border-radius: 3px;
+  }
+
+  .sparse-note {
+    background: var(--accent-soft);
+    padding: var(--space-lg);
+    border-radius: 4px;
+    margin: var(--space-2xl) 0;
+  }
+  .sparse-note p { font-size: 0.9rem; color: var(--text-2); margin: 0; }
+  .sparse-note strong { color: var(--text); }
+
+  .case-format {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: var(--space-sm);
+    margin: var(--space-lg) 0;
+  }
+
+  .case-cell {
+    padding: var(--space-md);
+    background: var(--bg-raised);
+    border-radius: 4px;
+  }
+
+  .case-cell-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.6rem;
+    color: var(--text-3);
+    margin-bottom: 2px;
+  }
+
+  .case-cell-label {
+    font-size: 0.82rem;
+    color: var(--text);
+    font-weight: 600;
+    margin-bottom: 2px;
+  }
+
+  .case-cell-desc {
+    font-size: 0.72rem;
+    color: var(--text-3);
+    line-height: 1.5;
+    margin: 0;
+  }
+
+  .timeline-block {
+    margin-bottom: var(--space-xl);
+    padding-bottom: var(--space-xl);
+    border-bottom: 1px solid var(--border);
+  }
+  .timeline-block:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+
+  .timeline-weeks {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.68rem;
+    font-weight: 500;
+    color: var(--accent);
+    letter-spacing: 0.04em;
+    margin-bottom: var(--space-xs);
+  }
+
+  .timeline-title {
+    font-size: 1rem;
+    color: var(--text);
+    font-weight: 600;
+    margin-bottom: var(--space-sm);
+  }
+
+  .timeline-body {
+    font-size: 0.88rem;
+    color: var(--text-3);
+    line-height: 1.7;
+    margin: 0;
+  }
+  .timeline-body em { color: var(--text-2); font-style: italic; }
+
+  .hard-target {
+    margin-top: var(--space-2xl);
+    padding: var(--space-lg);
+    background: var(--bg-raised);
+    border-radius: 4px;
+  }
+
+  .hard-target-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.65rem;
+    font-weight: 500;
+    color: var(--accent);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    margin-bottom: var(--space-md);
+  }
+
+  .hard-target p {
+    font-size: 0.88rem;
+    color: var(--text-2);
+    margin-bottom: var(--space-xs);
+    line-height: 1.6;
+  }
+  .hard-target p:last-child { margin-bottom: 0; }
+
+  .close {
+    margin-top: var(--space-4xl);
+    padding-top: var(--space-xl);
+    border-top: 1px solid var(--border);
+  }
+
+  .close p { font-size: 0.92rem; color: var(--text-2); margin-bottom: var(--space-md); }
+
+  .last-line {
+    font-family: 'Literata', serif;
+    font-style: italic;
+    font-size: 1.05rem;
+    color: var(--text);
+    margin-top: var(--space-xl);
+    margin-bottom: var(--space-xl);
+  }
+
+  .sig {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.78rem;
+    color: var(--text-3);
+    line-height: 1.9;
+  }
+
+  .sig a {
+    color: var(--accent);
+    text-decoration: none;
+    border-bottom: 1px solid oklch(0.68 0.13 150 / 0.25);
+    transition: border-color 0.15s ease;
+  }
+  .sig a:hover { border-color: var(--accent); }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .page > * {
+      opacity: 0;
+      transform: translateY(10px);
+      animation: enter 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+    .page > *:nth-child(1) { animation-delay: 0.06s; }
+    .page > *:nth-child(2) { animation-delay: 0.14s; }
+    .page > *:nth-child(3) { animation-delay: 0.22s; }
+    .page > *:nth-child(4) { animation-delay: 0.28s; }
+    .page > *:nth-child(5) { animation-delay: 0.34s; }
+    .page > *:nth-child(6) { animation-delay: 0.40s; }
+
+    @keyframes enter {
+      to { opacity: 1; transform: translateY(0); }
+    }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <header>
+    <div class="header-meta">Sid Sundaram → Kita · Growth Intern</div>
+    <h1>Two founders. Four continents. Three products. And the team is about to <em>triple.</em></h1>
+    <div class="hook">
+      <p>You grew 40% WoW through YC. Every successful pilot validated a product-market cell; every failed one ruled one out. Right now that knowledge lives in two founders' heads — and that works at your current scale.</p>
+      <p>You're about to hire a Head of Growth, two Founding Engineers, and an ML Intern. The Head of Growth will fill top-of-funnel. The engineers will ship infra and models. But the work between <strong>lender-in-pilot</strong> and <strong>lender-as-paying-customer</strong> — the one that tells the Growth lead where to point pipeline and tells the ML team which signals matter — doesn't have an owner yet.</p>
+      <p class="hook-closer">I'd build it in 12 weeks while you figure out whether it becomes a permanent function.</p>
+    </div>
+  </header>
+
+  <section>
+    <h2>Why I can build this</h2>
+    <p>I've launched two B2B verticals from zero. In both, demand wasn't the bottleneck — converting pilots into contracts was. I built the measurement that told us which pilots would convert and used that data to close the next wave.</p>
+
+    <div class="proof-item">
+      <div class="proof-label">Interview Kickstart · B2B Pilot</div>
+      <p class="proof-text">Tracked CSAT through structured weekly pulse + system telemetry. The pilot data was the wedge that justified the investment.</p>
+      <span class="proof-result">4.6+ CSAT → full-scale rollout approved</span>
+    </div>
+
+    <div class="proof-item">
+      <div class="proof-label">upGrad · University Partnerships</div>
+      <p class="proof-text">Sales couldn't convert top-funnel demand. Audited the funnel from the buyer's side, diagnosed where the curriculum-conversion conversation broke, rebuilt the pilot motion.</p>
+      <span class="proof-result">6 university partnerships closed</span>
+    </div>
+
+    <div class="proof-item">
+      <div class="proof-label">upGrad · Webinar Validation</div>
+      <p class="proof-text">Used pre-launch pilot signal to validate demand before building.</p>
+      <span class="proof-result">3x baseline → 4.8+/5.0 course rating sustained</span>
+    </div>
+
+    <p class="proof-coda">Same shape as your problem. Different vertical.</p>
+  </section>
+
+  <section>
+    <h2>How I'd think about it</h2>
+    <p>Generic conversion % won't work — three products convert through different leading indicators.</p>
+
+    <div class="product-block">
+      <div class="product-name">Kita Capture</div>
+      <div class="product-desc">API-based · easiest to trial · likely first product most lenders touch</div>
+      <div class="metric-row">
+        <div class="metric-label">Leading indicator</div>
+        <p class="metric-text">% of docs through <code>/revalidate</code> by day 14. Low revalidate + flat submission = abandoned. Low revalidate + rising submission = converging.</p>
+      </div>
+      <div class="metric-row">
+        <div class="metric-label">Conversion-predictive</div>
+        <p class="metric-text">Per-doc-type extraction confidence × forward-deployed engineer escalation rate. High escalation rate during a pilot is worth investigating — it often signals document types the platform doesn't yet handle natively.</p>
+      </div>
+    </div>
+
+    <div class="product-block">
+      <div class="product-name">AI Credit Officer</div>
+      <div class="product-desc">Touches borrowers directly · deepest integration · hardest to unwind</div>
+      <div class="metric-row">
+        <div class="metric-label">Leading indicator</div>
+        <p class="metric-text">Borrower response rate stabilization by day 5, per channel (WhatsApp / Viber / SMS / email). No floor by day 5 = channel-market mismatch.</p>
+      </div>
+      <div class="metric-row">
+        <div class="metric-label">Conversion-predictive</div>
+        <p class="metric-text">Completion rate by question type. Drop-off concentrating on specific question types tells the lender what to simplify — and tells you which questions to redesign in the prompt library.</p>
+      </div>
+    </div>
+
+    <div class="product-block">
+      <div class="product-name">AI Underwriter</div>
+      <div class="product-desc">Visible to the credit team daily · output quality is immediately felt</div>
+      <div class="metric-row">
+        <div class="metric-label">Leading indicator</div>
+        <p class="metric-text">Memo-draft-to-credit-officer-edit ratio trending down week-over-week. Up = the model is wrong; down = the model is learning the lender's underwriting voice.</p>
+      </div>
+      <div class="metric-row">
+        <div class="metric-label">Conversion-predictive</div>
+        <p class="metric-text">Per-section override frequency. Repeated overrides on the same section (e.g. income normalization for self-employed) is a feature priority signal, not a model failure.</p>
+      </div>
+    </div>
+
+    <div class="sparse-note">
+      <p><strong>The matrix is sparse.</strong> 3 products × 4 markets isn't 12 equally active cells. Some product-market combinations are mature; others are early. Which cells are actually converting — and which ones the Head of Growth should be filling — is itself the first question the instrumentation answers.</p>
+    </div>
+
+    <p><strong>Output.</strong> A weekly view that tells the Head of Growth which pilots are converting, which are stalling, and where to focus this week's calls.</p>
+
+    <p style="margin-top: var(--space-2xl);"><strong>Case study format</strong> — post-pilot proof artifact. Six sections, ≤60 words each. Generated weeks 10–12 from converters. Becomes the Head of Growth's reusable asset for closing the next 10.</p>
+
+    <div class="case-format">
+      <div class="case-cell">
+        <div class="case-cell-num">01</div>
+        <div class="case-cell-label">Pilot context</div>
+        <p class="case-cell-desc">Lender ICP, market, product entry, pilot length</p>
+      </div>
+      <div class="case-cell">
+        <div class="case-cell-num">02</div>
+        <div class="case-cell-label">Baseline</div>
+        <p class="case-cell-desc">Manual review time, doc volume, pre-Kita process</p>
+      </div>
+      <div class="case-cell">
+        <div class="case-cell-num">03</div>
+        <div class="case-cell-label">Pilot setup</div>
+        <p class="case-cell-desc">Products deployed, schemas used, deployment model</p>
+      </div>
+      <div class="case-cell">
+        <div class="case-cell-num">04</div>
+        <div class="case-cell-label">Result</div>
+        <p class="case-cell-desc">Time saved per app, accuracy %, doc volume processed</p>
+      </div>
+      <div class="case-cell">
+        <div class="case-cell-num">05</div>
+        <div class="case-cell-label">Quote</div>
+        <p class="case-cell-desc">Pilot lead, sourced directly</p>
+      </div>
+      <div class="case-cell">
+        <div class="case-cell-num">06</div>
+        <div class="case-cell-label">Expansion path</div>
+        <p class="case-cell-desc">New products or ICP segments unlocked</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>What I'd ship in 12 weeks</h2>
+
+    <div class="timeline">
+      <div class="timeline-block">
+        <div class="timeline-weeks">Weeks 1–3</div>
+        <div class="timeline-title">Audit + spine definition</div>
+        <p class="timeline-body">Shadow 6–10 calls — founder demos, pilot kickoffs, mid-pilot check-ins, customer-facing engineering work. Ship the <em>How Kita pilots actually run today</em> memo. Define metric spine per product. Map which product-market cells are actually active.</p>
+      </div>
+      <div class="timeline-block">
+        <div class="timeline-weeks">Weeks 4–6</div>
+        <div class="timeline-title">Instrumentation</div>
+        <p class="timeline-body">Build measurement collection using whatever the team already lives in — the system should fit the workflow, not the other way around. First comparable view across 2–3 active pilots by week 6. Start tagging customer-facing engineering work for roadmap signal.</p>
+      </div>
+      <div class="timeline-block">
+        <div class="timeline-weeks">Weeks 7–9</div>
+        <div class="timeline-title">Comparative analysis</div>
+        <p class="timeline-body">6+ pilots on comparable instrumentation. Ship <em>Which segments are converting and why</em> to founders. Pull the conversion-predictive signals out, validated against actual contracts signed. Hand-off plan to Head of Growth.</p>
+      </div>
+      <div class="timeline-block">
+        <div class="timeline-weeks">Weeks 10–12</div>
+        <div class="timeline-title">Output layer</div>
+        <p class="timeline-body">3 published case studies from converters. Measurement playbook documented for Head of Growth. Recommendation: should this be a permanent hire, at what scope, with what tooling next.</p>
+      </div>
+    </div>
+
+    <div class="hard-target">
+      <div class="hard-target-label">Hard target · Week 12</div>
+      <p>Head of Growth has 3 case studies.</p>
+      <p>Per-cell conversion signals named.</p>
+      <p>Founder hours on pilot operations down measurably.</p>
+      <p>Decision-ready on permanent hire.</p>
+    </div>
+  </section>
+
+  <div class="close">
+    <p>15 minutes to walk through this. If pilot ops isn't a hire you're prioritizing, I'd rather get the thinking right than ghost-die.</p>
+    <p class="last-line">The work itself is yours either way.</p>
+    <div class="sig">
+      Sid Sundaram<br>
+      <a href="https://www.linkedin.com/in/sidharthsundaram/" target="_blank">linkedin.com/in/sidharthsundaram</a><br>
+      <a href="https://sidharthsundaram.com" target="_blank">sidharthsundaram.com</a>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>
